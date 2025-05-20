@@ -1,0 +1,21 @@
+{
+    'name': 'Hospital Management System',
+    'summary': 'Manage Patients',
+    'author': 'Alaa Abdullah',
+    'category': 'Healthcare',
+    'version': '0.1',
+    'depends': ['base'],
+    'data': [
+        'security/hms_groups.xml',
+        'security/ir.model.access.csv',
+        'reports/report_patient_templet.xml',
+        'reports/reports.xml',
+        'views/base_menu.xml',
+        'views/patients.xml',
+        'views/create_department.xml',
+        'views/create_doctor.xml',
+        'views/partner.xml',
+    ],
+    'installable': True,
+    'auto_install': False,
+}

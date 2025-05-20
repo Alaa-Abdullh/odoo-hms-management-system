@@ -1,0 +1,11 @@
+<odoo>
+    <record id="hms_group_hms_manager" model="res.groups">
+        <field name="name">HMS Manager</field>
+        <field name="category_id" ref="base.module_category_administration"/>
+    </record>
+
+    <record id="hms_group_hms_emp" model="res.groups">
+        <field name="name">HMS Employee</field>
+        <field name="category_id" ref="base.module_category_administration"/>
+    </record>
+</odoo>

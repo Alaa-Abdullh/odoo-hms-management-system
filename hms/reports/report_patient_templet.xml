@@ -1,0 +1,87 @@
+<odoo>
+    <template id="report_patient_templet">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <!-- Header -->
+                        <div class="header" style="text-align: center; margin-bottom: 20px;">
+                            <h1>Patient Status Report</h1>
+                            <h4>Generated on: <span t-esc="time.strftime('%Y-%m-%d %H:%M:%S')"/></h4>
+                        </div>
+
+                        <!-- Patient Information -->
+                        <div class="patient-info" style="margin-bottom: 30px;">
+                            <h2>
+                                <t t-esc="o.firstname or ''"/>
+                                <t t-esc="o.lastname or ''"/>
+                            </h2>
+                            <p><strong>Age:</strong> <t t-esc="o.age or 'N/A'"/></p>
+                            <p><strong>Blood Type:</strong> <t t-esc="o.blood or 'N/A'"/></p>
+                            <p><strong>Email:</strong> <t t-esc="o.email or 'N/A'"/></p>
+                            <p><strong>Address:</strong> <t t-esc="o.address or 'N/A'"/></p>
+                        </div>
+
+                        <!-- Medical Information -->
+                        <div class="medical-info" style="margin-bottom: 30px;">
+                            <h3>Medical Details</h3>
+                            <p>
+                                <strong>Birth Date:</strong>
+                                <t t-if="o.birth_date">
+                                    <t t-esc="o.birth_date" t-options="{'widget': 'date', 'format': 'yyyy-MM-dd'}"/>
+                                </t>
+                                <t t-else="">N/A</t>
+                            </p>
+                            <p><strong>PCR:</strong> <t t-esc="'Yes' if o.pcr else 'No'"/></p>
+                            <p><strong>CR Ratio:</strong> <t t-esc="o.cr_Ratio or 'N/A'"/></p>
+                            <p><strong>State:</strong> <t t-esc="o.state or 'N/A'"/></p>
+                            <p><strong>Level:</strong> <t t-esc="o.level or 'N/A'"/></p>
+                        </div>
+
+                        <!-- Department and Doctors -->
+                        <div class="department-doctors" style="margin-bottom: 30px;">
+                            <h3>Department and Doctors</h3>
+                            <p><strong>Department:</strong> <t t-esc="o.department_id.name or 'N/A'"/></p>
+                            <p><strong>Doctors:</strong>
+                                <t t-if="o.doctor_ids">
+                                    <t t-foreach="o.doctor_ids" t-as="doctor">
+                                        <span t-esc="doctor.name"/><t t-if="not doctor_last">, </t>
+                                    </t>
+                                </t>
+                                <t t-else="">N/A</t>
+                            </p>
+                        </div>
+
+                        <!-- Log History -->
+                        <div class="log-history">
+                            <h3>Log History</h3>
+                            <t t-if="o.log_ids">
+                                <table class="table table-bordered" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.log_ids" t-as="log">
+                                            <tr>
+                                                <td>
+                                                    <t t-esc="log.date or log.create_date" t-options="{'widget': 'datetime', 'format': 'yyyy-MM-dd HH:mm:ss'}"/>
+                                                </td>
+                                                <td><t t-esc="log.description"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <t t-else="">
+                                <p>No log history available.</p>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
